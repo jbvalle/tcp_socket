@@ -54,6 +54,11 @@ int main(int argc, char **argv){
     // 6. Send actual data
     char msg_buff[256]; bzero(msg_buff, 256);
 
+    //========================= TRANSMITTING PROCEDURE =========================
+    strcpy(msg_buff, "Server Connection has been established \n");
+
+    send(client_socket, msg_buff, sizeof(msg_buff), 0); bzero(msg_buff, 256);
+
     for(;;){
         
         //========================== RECEIVING PROCEDURE ===========================
@@ -61,12 +66,7 @@ int main(int argc, char **argv){
 
         printf("Recieved: %s", msg_buff); bzero(msg_buff, 256);
 
-        //========================= TRANSMITTING PROCEDURE =========================
-        printf("Send: "); for(int n = 0; (msg_buff[n++] = getchar()) != '\n';);
-
-        send(client_socket, msg_buff, sizeof(msg_buff), 0); bzero(msg_buff, 256);
     }
-    
 
     //==========================================================================
     close(server_socket);

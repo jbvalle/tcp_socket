@@ -31,7 +31,7 @@ int main(int argc, char **argv){
     struct sockaddr_in server_address;
     server_address.sin_family = AF_INET;
     server_address.sin_port = htons(8080);
-    server_address.sin_addr.s_addr = inet_addr("192.168.0.175");
+    server_address.sin_addr.s_addr = inet_addr("176.66.244.167");
     //server_address.sin_addr.s_addr = INADDR_ANY;
 
     int conn_stat = connect(network_socket, (struct sockaddr *) &server_address, sizeof(server_address));
@@ -47,6 +47,12 @@ int main(int argc, char **argv){
     // Buffer for storing server_data
     char msg_buff[256]; bzero(msg_buff, 256);
 
+
+    //========================== RECEIVING PROCEDURE ===========================
+    recv(network_socket, msg_buff, sizeof(msg_buff), 0);
+
+    printf("Recieved: %s", msg_buff); bzero(msg_buff, 256);
+
     for(;;){
 
         //========================= TRANSMITTING PROCEDURE =========================
@@ -54,10 +60,6 @@ int main(int argc, char **argv){
         
         send(network_socket, msg_buff, sizeof(msg_buff), 0); bzero(msg_buff, 256);
 
-        //========================== RECEIVING PROCEDURE ===========================
-        recv(network_socket, msg_buff, sizeof(msg_buff), 0);
-
-        printf("Recieved: %s", msg_buff); bzero(msg_buff, 256);
     }
 
     //==========================================================================
