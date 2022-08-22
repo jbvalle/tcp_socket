@@ -59,18 +59,20 @@ int main(int argc, char **argv){
 
     send(client_socket, msg_buff, sizeof(msg_buff), 0); bzero(msg_buff, 256);
 
-    for(;;){
         
-        //========================== RECEIVING PROCEDURE ===========================
-        recv(client_socket, msg_buff, sizeof(msg_buff), 0);
+    //========================== RECEIVING PROCEDURE ===========================
+    recv(client_socket, msg_buff, sizeof(msg_buff), 0);
 
-        printf("Recieved: %s", msg_buff); bzero(msg_buff, 256);
+    printf("Recieved: %s\n", msg_buff); 
 
-    }
+    if(strcmp(msg_buff, "exit") == 0) return 0;
+
+    bzero(msg_buff, 256);
+
 
     //==========================================================================
     close(server_socket);
     
-    return 0;
+    return -1;
 }
 
