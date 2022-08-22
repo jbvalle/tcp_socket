@@ -15,6 +15,10 @@
 // for close
 #include <unistd.h>
 
+#define PORT 9002
+#define SERVER_IP "192.168.0.175"
+#define SERVER_IPv4 "176.66.244.167"
+
 int main(int argc, char **argv){
 
     // 1. Create Socket
@@ -30,10 +34,8 @@ int main(int argc, char **argv){
     // Prerequisit: Specify an address first to connect as well as a port thats why inet header was needed to provide Address structure
     struct sockaddr_in server_address;
     server_address.sin_family = AF_INET;
-    server_address.sin_port = htons(8080);
-    //server_address.sin_addr.s_addr = inet_addr("176.66.244.167");
-    server_address.sin_addr.s_addr = inet_addr("192.168.0.175");
-    //server_address.sin_addr.s_addr = INADDR_ANY;
+    server_address.sin_port = htons(PORT);
+    server_address.sin_addr.s_addr = inet_addr(SERVER_IP);
 
     int conn_stat = connect(network_socket, (struct sockaddr *) &server_address, sizeof(server_address));
 
@@ -55,7 +57,6 @@ int main(int argc, char **argv){
     printf("Recieved: %s", msg_buff); bzero(msg_buff, 256);
 
     //========================= TRANSMITTING PROCEDURE =========================
-    //printf("Send: "); for(int n = 0; (msg_buff[n++] = getchar()) != '\n';);
     
     strcpy(msg_buff, argv[1]);
 

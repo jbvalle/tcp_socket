@@ -15,6 +15,9 @@
 // for close
 #include <unistd.h>
 
+#define PORT 9002
+#define SERVER_IP "192.168.0.175"
+
 int main(int argc, char **argv){
 
 
@@ -29,8 +32,8 @@ int main(int argc, char **argv){
     //  2. Define address struct -> for server address
     struct sockaddr_in server_address;
     server_address.sin_family = AF_INET;
-    server_address.sin_port = htons(8080);
-    server_address.sin_addr.s_addr = inet_addr("192.168.0.175");
+    server_address.sin_port = htons(PORT);
+    server_address.sin_addr.s_addr = inet_addr(SERVER_IP);
 
     // 3. Bind server program to ip address that should be listening
     // Check if listening port is still active and allow reusing PORT
