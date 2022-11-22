@@ -15,8 +15,8 @@
 // for close
 #include <unistd.h>
 
-#define PORT 9002
-#define SERVER_IP "192.168.0.175"
+#define PORT 9999
+#define SERVER_IP "192.168.0.42"
 
 int main(int argc, char **argv){
 
@@ -57,23 +57,23 @@ int main(int argc, char **argv){
     // 6. Send actual data
     char msg_buff[256]; bzero(msg_buff, 256);
 
-    //========================= TRANSMITTING PROCEDURE =========================
-    strcpy(msg_buff, "Server Connection has been established \n");
+    for(;;){
 
-    send(client_socket, msg_buff, sizeof(msg_buff), 0); bzero(msg_buff, 256);
+        //========================= TRANSMITTING PROCEDURE =========================
+        send(client_socket, argv[1], sizeof(argv[1]), 0); 
 
-        
-    //========================== RECEIVING PROCEDURE ===========================
-    recv(client_socket, msg_buff, sizeof(msg_buff), 0);
+        printf("SERVER: %s\n", argv[1]);
 
-    printf("Recieved: %s\n", msg_buff); 
+        //========================== RECEIVING PROCEDURE ===========================
+        recv(client_socket, msg_buff, sizeof(msg_buff), 0);
 
-    if(strcmp(msg_buff, "exit") == 0) return 0;
+        printf("\nNODE: %s\n", msg_buff);
 
-    bzero(msg_buff, 256);
+        if(!strcmp(msg_buff, "OK"))return 0;
 
+        //==========================================================================
+    }
 
-    //==========================================================================
     close(server_socket);
     
     return -1;
